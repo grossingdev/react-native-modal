@@ -305,6 +305,9 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       onMoveShouldSetPanResponder: (evt, gestureState) => {
         // Use propagateSwipe to allow inner content to scroll. See PR:
         // https://github.com/react-native-community/react-native-modal/pull/246
+        if (this.props.startY && Math.abs(this.props.startY - gestureState.moveY) > 40) {
+          return false;
+        }
         if (!this.props.propagateSwipe) {
           // The number "4" is just a good tradeoff to make the panResponder
           // work correctly even when the modal has touchable buttons.
